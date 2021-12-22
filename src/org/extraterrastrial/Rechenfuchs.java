@@ -7,78 +7,106 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
- *
  * Beschreibung
  *
- * @version 1.0 vom 17.12.2021
  * @author
+ * @version 1.0 vom 17.12.2021
  */
 
 public class Rechenfuchs extends JFrame {
 
+    private JButton resetButton = new JButton();
     private ArrayList<JButton> numberButtons = new ArrayList<>();
-    private ArrayList<Integer> openNumbers = new ArrayList<>();
+    private JLabel computerPointsDisplay = new JLabel("Computer:");
+    private JLabel humanPointsDisplay = new JLabel("Mensch:");
+    private int usedButtons = 0;
     private int playerPoints = 0;
     private int computerPoints = 0;
 
     public Rechenfuchs() {
-        // Frame-Initialisierung
+
         super();
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setSize(720, 480);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (d.width - getSize().width) / 2;
-        int y = (d.height - getSize().height) / 2;
-        setLocation(x, y);
+        setSize(1920, 1080);
         setTitle("Farben");
-        setResizable(false);
+        setResizable(true);
         Container cp = getContentPane();
         cp.setLayout(null);
 
-        int scale = 80;
+        int buttonsX = 5;
+        int buttonsY = 4;
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 4; j++) {
-                int index = i * 4 + j;
-                openNumbers.add(index + 1);
+        int scale = 120;
+
+        computerPointsDisplay.setBounds((buttonsX + 2) * scale + scale / 2, scale / 2, scale, scale * buttonsY / 2);
+        humanPointsDisplay.setBounds((buttonsX + 2) * scale + scale / 2, scale / 2 + scale * (buttonsY / 2), scale, scale * buttonsY / 2);
+
+        resetButton.setBackground(Color.YELLOW);
+        resetButton.setText("Neustart");
+        resetButton.setBounds((buttonsX + 1) * scale + scale / 2, scale / 2, scale, scale * buttonsY);
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (JButton button : numberButtons) {
+                    button.setBackground(Color.GREEN);
+                }
+                playerPoints = 0;
+                computerPoints = 0;
+            }
+        });
+
+        for (int j = 0; j < buttonsY; j++) {
+            for (int i = 0; i < buttonsX; i++) {
+                int index = j * buttonsX + i;
                 numberButtons.add(new JButton());
                 JButton curButton = numberButtons.get(index);
                 curButton.setBackground(Color.GREEN);
                 curButton.setText("" + (index + 1));
-
                 curButton.setBounds(i * scale + scale / 2, j * scale + scale / 2, scale, scale);
-
                 curButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        JButton button = (JButton) e.getSource();
-                        int nameAsNumber = Integer.parseInt(button.getText());
-                        numberButtons.remove(nameAsNumber);
+                        boolean computerGotPoints = false;
+                        JButton clickedButton = (JButton) e.getSource();
+                        if (clickedButton.getBackground() == Color.RED) {
+                            return;
+                        }
 
-                        boolean computerGotPoitns = false;
-                        for (int num : openNumbers) {
-                            if (nameAsNumber % num == 0) {
-                                numberButtons.get(num - 1).setBackground(Color.RED);
-                                openNumbers.remove(num);
-                                computerPoints += num;
-                                computerGotPoitns = true;
+                        int clickedNumber = Integer.parseInt(clickedButton.getText());
+                        clickedButton.setBackground(Color.RED);
+                        usedButtons += 1;
+
+                        for (JButton button : numberButtons) {
+                            int number = Integer.parseInt(button.getText());
+                            if (number >= clickedNumber) {
+                                break;
+                            }
+
+                            if (clickedNumber % number == 0 && button.getBackground() == Color.GREEN) {
+                                button.setBackground(Color.RED);
+                                computerPoints += number;
+                                usedButtons += 1;
+                                computerGotPoints = true;
                             }
                         }
-                        if (computerGotPoitns) {
-                            playerPoints += nameAsNumber;
+                        if (computerGotPoints) {
+                            playerPoints += clickedNumber;
                         } else {
-                            computerPoints += nameAsNumber;
+                            computerPoints += clickedNumber;
                         }
+
+                        humanPointsDisplay.setText("Mensch: " + playerPoints);
+                        computerPointsDisplay.setText("Computer: " + computerPoints);
 
                     }
                 });
 
-
                 cp.add(curButton);
             }
         }
-
-        System.out.println(playerPoints);
+        cp.add(resetButton);
+        cp.add(humanPointsDisplay);
+        cp.add(computerPointsDisplay);
 
         setVisible(true);
     }
@@ -86,4 +114,4 @@ public class Rechenfuchs extends JFrame {
     public static void main(String[] args) {
         new Rechenfuchs();
     }
-} // end of class JFramesEinfuehrung
+}
