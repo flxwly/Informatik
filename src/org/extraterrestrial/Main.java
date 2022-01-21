@@ -1,4 +1,4 @@
-package org.extraterrastrial;
+package org.extraterrestrial;
 
 public class Main {
 

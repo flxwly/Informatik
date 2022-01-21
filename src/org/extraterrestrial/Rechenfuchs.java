@@ -1,15 +1,14 @@
-package org.extraterrastrial;
+package org.extraterrestrial;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  * Beschreibung
  *
- * @author
+ * @author flxwly
  * @version 1.0 vom 17.12.2021
  */
 
@@ -19,7 +18,6 @@ public class Rechenfuchs extends JFrame {
     private ArrayList<JButton> numberButtons = new ArrayList<>();
     private JLabel computerPointsDisplay = new JLabel("Computer:");
     private JLabel humanPointsDisplay = new JLabel("Mensch:");
-    private int usedButtons = 0;
     private int playerPoints = 0;
     private int computerPoints = 0;
 
@@ -74,7 +72,6 @@ public class Rechenfuchs extends JFrame {
 
                         int clickedNumber = Integer.parseInt(clickedButton.getText());
                         clickedButton.setBackground(Color.RED);
-                        usedButtons += 1;
 
                         for (JButton button : numberButtons) {
                             int number = Integer.parseInt(button.getText());
@@ -85,7 +82,6 @@ public class Rechenfuchs extends JFrame {
                             if (clickedNumber % number == 0 && button.getBackground() == Color.GREEN) {
                                 button.setBackground(Color.RED);
                                 computerPoints += number;
-                                usedButtons += 1;
                                 computerGotPoints = true;
                             }
                         }

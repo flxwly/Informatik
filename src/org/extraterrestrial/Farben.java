@@ -1,16 +1,15 @@
-package org.extraterrastrial;
+package org.extraterrestrial;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 /**
  *
  * Beschreibung
  *
  * @version 1.0 vom 17.12.2021
- * @author
+ * @author flxwly
  */
 
 public class Farben extends JFrame {
