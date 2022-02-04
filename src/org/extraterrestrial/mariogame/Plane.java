@@ -55,11 +55,8 @@ public class Plane extends JPanel implements ActionListener {
     }
 
     private void step() {
-        repaint(character.getGridX() - 1, character.getGridY() - 1,
-                character.getSpriteWidth() + 1, character.getSpriteHeight() + 1);
         character.update();
-        repaint(character.getGridX() - 1, character.getGridY() - 1,
-                character.getSpriteWidth() + 1, character.getSpriteHeight() + 1);
+        repaint(0, 0, getWidth(), getHeight());
     }
 
     private class TAdapter extends KeyAdapter {

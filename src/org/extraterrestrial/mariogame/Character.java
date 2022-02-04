@@ -32,26 +32,37 @@ public class Character {
         h = sprite.getHeight(null);
     }
 
-    void jump() {
-        System.out.println("" + position.y);
-        acceleration.add(new Vector2D(0, -50));
+    boolean isOnGround() {
+        return position.y < 150;
     }
 
-    void gravity() {
-        if (position.y < 150) {
-            acceleration.add(new Vector2D(0, 9.81));
+    void jump() {
+        if (isOnGround()) {
+            acceleration.add(new Vector2D(0, -50));
         }
     }
 
+    void gravity() {
+        acceleration.add(new Vector2D(0, 9.81));
+    }
+
     void update() {
+        if (!isOnGround()) {
+            gravity();
 
-        gravity();
-
-        acceleration.add(Vector2D.mult(velocity, -0.2));
+        } else if (velocity.y < 0){
+            velocity.y = 0;
+        }
 
         velocity.add(acceleration);
-        velocity.limit(MAX_VELOCITY);
         acceleration.set(0, 0);
+
+        // horizontal speed limit
+        if (velocity.x > MAX_VELOCITY) {
+            velocity.x = MAX_VELOCITY;
+        } else if (velocity.x < -MAX_VELOCITY) {
+            velocity.x = -MAX_VELOCITY;
+        }
 
         if (velocity.y > 0 && position.y > 150) {
             velocity.y = 0;
