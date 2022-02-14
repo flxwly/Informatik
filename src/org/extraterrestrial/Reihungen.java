@@ -49,6 +49,52 @@ public class Reihungen {
 
         // Aufgabe 2) a)
         // Im Fall iii) und v) wird das array vollständig durchlaufen.
+
+
+        // Andere Aufgaben
+        // Aufgabe 1)
+        int reihung[] = new int[]{1, 3, 5, 7, 9, 11, 13, 15};
+
+        // Aufgabe 2)
+        for (int elem :
+                reihung) {
+            elem *= 4;
+        }
+
+        // Aufgabe 3)
+        if (reihung[7] > reihung[6]) {
+            System.out.println("Das 8. Element ist größer als das 7.");
+        }
+
+        // Aufgabe 4)
+        // 1, 2, 3, 4, 5, 6, 7, 8
+
+        // Aufgabe 5)
+        reihung = new int[10];
+        for (int i = 0; i < 10; i++) {
+            reihung[i] = (i + 1) * 4;
+        }
+
+        // Aufgabe 6)
+        reihung = new int[]{77, 13, 112, 88, 11, 49, 48, 69, 41, 111};
+        int kleinerAls70 = 0;
+        for (int zahl :
+                reihung) {
+            if (zahl < 70)
+                kleinerAls70 += 1;
+        }
+
+        // Aufgabe 7)
+
+        // Hypothetisch:
+        // Als globale Variable:
+        //      JTextField textField = new JTextField;
+        // String text = new String();
+        // for (int zahl : reihung) {
+        //      if (zahl > 40)
+        //          text += "" + zahl
+        // }
+        // textField.setText(text);
     }
 
     public static int summe(int[] arr) {

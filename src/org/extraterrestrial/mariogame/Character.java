@@ -3,6 +3,7 @@ package org.extraterrestrial.mariogame;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 
 public class Character {
@@ -43,7 +44,7 @@ public class Character {
     }
 
     void gravity() {
-        acceleration.add(new Vector2D(0, 9.81));
+        acceleration.add(new Vector2D(0, -9.81));
     }
 
     void update() {
@@ -70,6 +71,8 @@ public class Character {
 
         this.position.add(this.velocity);
     }
+
+
 
     int getGridX() {
         return Math.round(this.position.x);
