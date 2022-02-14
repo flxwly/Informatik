@@ -1,6 +1,7 @@
 package org.extraterrestrial;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Matrix {
     public static void main(String[] args) {
@@ -17,29 +18,26 @@ public class Matrix {
             }
         }
 
-
-        System.out.println(encrypt("Hallo, mein Name ist Nepomuk!"));
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nachricht zum verschlüsseln eingeben:");
+        String str = scanner.nextLine();
+        System.out.println("Die verschlüsselte Nachricht lautet: \"" + encrypt(str) + "\"");
+        System.out.println("Nachricht zum entschlüsseln eingeben:");
+        str = scanner.nextLine();
+        System.out.println("Die entschlüsselte Nachricht lautet: \"" + encrypt(str) + "\"");
 
     }
 
 
     static String encrypt(String message) {
-        char[][] arr = new char[8][8];
-
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                //arr[i][j] = (i * 8 + j < message.length()) ? message.charAt(i * 8 + j) : ' ';
-                str.append(i + j * 8 < message.length() ? message.charAt(i + j * 8) : ' ');
+                if (i + j * 8 < message.length()) {
+                    str.append(message.charAt(i + j * 8));
+                }
             }
         }
-
-        /*for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                str.append(arr[j][i]);
-            }
-        }*/
 
         return str.toString();
     }
