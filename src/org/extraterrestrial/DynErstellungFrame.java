@@ -1,10 +1,11 @@
 package org.extraterrestrial;
 
+import template.JNumberField;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class DynErstellungFrame extends JFrame {
   // Anfang Attribute
@@ -44,29 +45,75 @@ public class DynErstellungFrame extends JFrame {
     jButton1.setText("Hinzufügen");
     jButton1.setMargin(new Insets(2, 2, 2, 2));
     jButton1.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        jButton1_ActionPerformed(evt);
+      public void actionPerformed(ActionEvent evt) {
+        try {
+          jButton1_ActionPerformed(evt);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
     });
     cp.add(jButton1);
     jTextArea1ScrollPane.setBounds(32, 184, 217, 49);
     cp.add(jTextArea1ScrollPane);
     // Ende Komponenten
-    
+
+
+
     setVisible(true);
   } // end of public DynErstellungFrame
   
   // Anfang Methoden
-  public void jButton1_ActionPerformed(ActionEvent evt) {
-    int[] helper = new int[dynIntReihung.length + 1];
-    for (int i = 0; i < dynIntReihung.length; i++) {
-      helper[i] = dynIntReihung[i];
+  public void jButton1_ActionPerformed(ActionEvent evt) throws InterruptedException {
+    dynIntReihung = push_back(dynIntReihung, jNumberField1.getInt());
+
+    if (dynIntReihung.length > 10) {
+      dynIntReihung = insert(dynIntReihung, 4, 69);
     }
-    helper[dynIntReihung.length] = jNumberField1.getInt();
-    dynIntReihung = helper;
+
+    if (dynIntReihung.length > 20) {
+      dynIntReihung = remove(dynIntReihung, 0);
+    }
+
+
+
 
     jTextArea1.setText(Arrays.toString(dynIntReihung));
   } // end of jButton1_ActionPerformed
+
+  public static int[] push_back(int[] arr, int elem) {
+    int[] helper = new int[arr.length + 1];
+    for (int i = 0; i < arr.length; i++) {
+      helper[i] = arr[i];
+    }
+    helper[arr.length] = elem;
+    return helper;
+  };
+
+  public static int[] insert(int[] arr, int index, int elem) {
+    int[] helper = new int[arr.length + 1];
+    for (int i = 0; i < index; i++) {
+      helper[i] = arr[i];
+    }
+    helper[index] = elem;
+    for (int i = index + 1; i < arr.length + 1; i++) {
+      helper[i] = arr[i - 1];
+    }
+
+    return helper;
+  };
+
+  public static int[] remove(int[] arr, int index) {
+    int[] helper = new int[arr.length - 1];
+    for (int i = 0; i < index - 1; i++) {
+      helper[i] = arr[i];
+    }
+    for (int i = index + 1; i < arr.length; i++) {
+      helper[i - 1] = arr[i];
+    }
+
+    return helper;
+  };
 
   // Ende Methoden
   

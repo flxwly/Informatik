@@ -1,4 +1,4 @@
-package org.extraterrestrial;
+package template;
 
 import java.awt.*;
 import java.awt.event.*;
