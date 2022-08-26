@@ -1,4 +1,4 @@
-package org.extraterrestrial.adt;
+package org.extraterrestrial;
 
 import org.extraterrestrial.adt.Queue;
 
