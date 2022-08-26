@@ -24,6 +24,18 @@ public class BaumBasisApp {
         baumEinfuegen(baum, 80);
         baumEinfuegen(baum, 100);
         baumEinfuegen(baum, 67);
+
+        // Struktur des Baumes
+        //          40
+        //         /  \
+        //       20   80
+        //      /    /  \
+        //    10    67  100
+        //     \
+        //      15
+        //       \
+        //        17
+
         anzeige(baum);
 
         System.out.println("Kleinstes: " + getMin(baum));
@@ -36,6 +48,10 @@ public class BaumBasisApp {
             b = b.getLeft();
         }
         return (int) b.getItem();
+    }
+
+    public static int getMinRec(BinTree b) {
+        return b.hasLeft() ? getMinRec(b.getLeft()) : (int) b.getItem();
     }
 
     public static int getMax(BinTree b) {
