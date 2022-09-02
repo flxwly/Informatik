@@ -1,4 +1,4 @@
-package org.extraterrestrial.recursion;
+package org.extraterrestrial.qp12.recursion;
 
 public class SumFrame {
     public static void main(String[] args) {

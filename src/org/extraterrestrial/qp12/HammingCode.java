@@ -1,11 +1,9 @@
-package org.extraterrestrial;
+package org.extraterrestrial.qp12;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HammingCode extends JFrame {
 

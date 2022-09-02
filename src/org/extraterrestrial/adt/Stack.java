@@ -105,6 +105,19 @@ public class Stack
     return null;
   }
 
+  public String toString() {
+    StringBuilder str = new StringBuilder("[");
+    Stack h = new Stack();
+    while(!this.isEmpty()) {
+      str.append(this.pop()).append(", ");
+      h.push(this.pop());
+    }
+    while (!h.isEmpty()) {
+      this.push(h.pop());
+    }
+    return str.append("]").toString();
+  }
+
   // Klasse Element zur internen Verwaltung der einzelnen Elemente des Stapels
   private class Element
   {

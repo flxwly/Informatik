@@ -1,6 +1,10 @@
 package BaumBasisApp;
 
 import org.extraterrestrial.adt.BinTree;
+import org.extraterrestrial.adt.Queue;
+import org.extraterrestrial.adt.Stack;
+
+import java.util.Arrays;
 
 /**
  * Beschreibung
@@ -36,8 +40,13 @@ public class BaumBasisApp {
         //       \
         //        17
 
-        anzeige(baum);
+        inOrder(baum);
 
+        levelOrder(baum);
+        antiLevelOrder(baum);
+
+        System.out.println("Nearest neighbours: " + Arrays.toString(nearestNeighbour(baum)));
+        System.out.println("Includes 34: " + baum.includes(17));
         System.out.println("Kleinstes: " + getMin(baum));
         System.out.println("Größtes: " + getMax(baum));
 
@@ -59,6 +68,77 @@ public class BaumBasisApp {
             b = b.getRight();
         }
         return (int) b.getItem();
+    }
+
+    public static int[] nearestNeighbour(BinTree b) {
+        int[] neighbour = new int[2];
+        if (b.hasLeft()) {
+            BinTree t = b.getLeft();
+            while (t.hasRight()) {
+                t = t.getRight();
+            }
+            if (t.hasItem()) {
+                neighbour[0] = (int) t.getItem();
+            }
+        }
+
+        if (b.hasRight()) {
+            BinTree t = b.getRight();
+            while (t.hasLeft()) {
+                t = t.getLeft();
+            }
+            if (t.hasItem()) {
+                neighbour[1] = (int) t.getItem();
+            }
+        }
+        return neighbour;
+    }
+    public static void antiLevelOrder(BinTree b) {
+        Stack q = new Stack();
+        q.push(b);
+        System.out.println("Anti LevelOrder: ");
+        while(!q.isEmpty()) {
+            BinTree t = (BinTree) q.pop();
+            System.out.println(t.getItem());
+            if (t.hasLeft()) {
+                q.push(t.getLeft());
+                //System.out.println("2: " + q);
+            }
+
+            if (t.hasRight()) {
+                q.push(t.getRight());
+                //System.out.println("3: " + q);
+            }
+        }
+    }
+
+    public static void levelOrder(BinTree b) {
+        Queue q = new Queue();
+        q.enqueue(b);
+        System.out.println("LevelOrder: ");
+        while(!q.isEmpty()) {
+            BinTree t = (BinTree) q.head();
+            System.out.println(t.getItem());
+            if (t.hasLeft()) {
+                q.enqueue(t.getLeft());
+                System.out.println("2: " + q);
+            }
+
+            if (t.hasRight()) {
+                q.enqueue(t.getRight());
+                System.out.println("3: " + q);
+            }
+            q.dequeue();
+        }
+
+
+    }
+
+    // getMin
+
+
+    public static int getMaxRec(BinTree b) {
+        return b.hasRight() ? getMaxRec(b.getRight()) : (int) b.getItem();
     }
 
     // Anfang Methoden
@@ -86,13 +166,13 @@ public class BaumBasisApp {
         }
     }
 
-    public static void anzeige(BinTree b) {
+    public static void inOrder(BinTree b) {
         if (b.hasLeft()) {
-            anzeige(b.getLeft());
+            inOrder(b.getLeft());
         } // end of if
         System.out.println("" + (int) b.getItem());
         if (b.hasRight()) {
-            anzeige(b.getRight());
+            inOrder(b.getRight());
         } // end of if
     }
 

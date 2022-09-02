@@ -1,4 +1,4 @@
-package org.extraterrestrial;
+package org.extraterrestrial.qp12;
 
 public class DynReihung {
 

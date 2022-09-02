@@ -1,4 +1,4 @@
-package org.extraterrestrial;
+package org.extraterrestrial.qp12;
 
 import javax.swing.*;
 import java.awt.*;

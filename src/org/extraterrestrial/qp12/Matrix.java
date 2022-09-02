@@ -1,4 +1,4 @@
-package org.extraterrestrial;
+package org.extraterrestrial.qp12;
 
 import java.util.Arrays;
 import java.util.Scanner;

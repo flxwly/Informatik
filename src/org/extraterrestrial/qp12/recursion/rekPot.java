@@ -1,11 +1,9 @@
-package org.extraterrestrial.recursion;
+package org.extraterrestrial.qp12.recursion;
 
 import java.awt.*;
-  import java.awt.event.*;
-  import javax.swing.*;
-  import javax.swing.event.*;
-  
-  /**
+import javax.swing.*;
+
+/**
    *
    * Beschreibung
    *
