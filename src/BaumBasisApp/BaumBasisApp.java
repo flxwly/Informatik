@@ -4,7 +4,9 @@ import org.extraterrestrial.adt.BinTree;
 import org.extraterrestrial.adt.Queue;
 import org.extraterrestrial.adt.Stack;
 
+import javax.swing.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Beschreibung
@@ -50,6 +52,12 @@ public class BaumBasisApp {
         System.out.println("Kleinstes: " + getMin(baum));
         System.out.println("Größtes: " + getMax(baum));
 
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            insertTree(baum, scanner.nextInt());
+            System.out.println(baum);
+        }
+
     } // end of public BaumBasisApp
 
     public static int getMin(BinTree b) {
@@ -80,6 +88,8 @@ public class BaumBasisApp {
             if (t.hasItem()) {
                 neighbour[0] = (int) t.getItem();
             }
+        } else {
+            neighbour[0] = (int) b.getItem();
         }
 
         if (b.hasRight()) {
@@ -90,6 +100,8 @@ public class BaumBasisApp {
             if (t.hasItem()) {
                 neighbour[1] = (int) t.getItem();
             }
+        } else {
+            neighbour[1] = (int) b.getItem();
         }
         return neighbour;
     }
@@ -141,6 +153,27 @@ public class BaumBasisApp {
         return b.hasRight() ? getMaxRec(b.getRight()) : (int) b.getItem();
     }
 
+    public static void insertTree(BinTree b, int wert) {
+        if (!b.hasItem())
+            b.setItem(wert);
+        else {
+            if (wert <= (int) b.getItem()) {
+                if (b.hasLeft()) {
+                    insertTree(b.getLeft(), wert);
+                } else {
+                    b.setLeft(new BinTree());
+                    b.getLeft().setItem(wert);
+                }
+            } else {
+                if (b.hasRight()) {
+                    insertTree(b.getRight(), wert);
+                } else {
+                    b.setRight(new BinTree());
+                    b.getRight().setItem(wert);
+                }
+            }
+        }
+    }
     // Anfang Methoden
     public static void baumEinfuegen(BinTree b, int wert) {
         if (!b.hasItem()) {

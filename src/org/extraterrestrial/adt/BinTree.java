@@ -7,7 +7,7 @@ package org.extraterrestrial.adt; /**
  * Klasse BinTree zur Umsetzung des ADT Bin�rbaum entsprechend der Vorgaben
  * des KC Informatik f�r die gymnasiale Oberstufe in Niedersachsen
  *
- * @author Landesnetzwerk Informatik Niedersachsen, Carsten Rohe
+ * @author Landesnetzwerk Informatik Niedersachsen, Carsten Rohe, flxwly
  * @version 0.8_20200429
  */
 public class BinTree {
@@ -155,8 +155,82 @@ public class BinTree {
         right = null;
     }
 
+    public int depth() {
+        return Math.max(this.hasLeft() ? this.getLeft().depth(2) : 1, this.hasRight() ? this.getRight().depth(2) : 1);
+    }
+
+    private int depth(int n) {
+        return Math.max(this.hasLeft() ? this.getLeft().depth(n + 1) : n, this.hasRight() ? this.getRight().depth(n + 1) : n);
+    }
+
+    private int getCharWidth() {
+        return Math.max(this.hasLeft() ? this.getLeft().getCharWidth() : (this.hasItem() ? this.getItem().toString().length() : 0),
+                this.hasRight() ? this.getRight().getCharWidth() : (this.hasItem() ? this.getItem().toString().length() : 0));
+    }
+
+    private void getArr(BinTree[] arr, int left, int right) {
+        int pivot = (left + right) / 2;
+        if (left <= right) {
+            BinTree cur = arr[pivot];
+            if (cur == null) {
+                return;
+            }
+
+            if (cur.hasLeft()) {
+                arr[(left + pivot) / 2] = cur.getLeft();
+                getArr(arr, left, pivot);
+            }
+            if (cur.hasRight()) {
+                arr[(pivot + right + 1) / 2] = cur.getRight();
+                getArr(arr, pivot + 1, right);
+            }
+        }
+    }
+
     public String toString() {
-        return "" + this.getItem();
+
+        int depth = this.depth();
+
+        if (depth == 1) {
+            if (this.hasItem()) {
+                return this.data.toString();
+            }
+            return "";
+        }
+
+        int charWidth = 4; //this.getCharWidth();
+        int elementSpan = (int) Math.pow(2, depth) - 1;
+
+        BinTree[] elements = new BinTree[elementSpan];
+        elements[(int) elementSpan / 2] = this;
+        getArr(elements, 0, elementSpan);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n").append("=".repeat(elementSpan * charWidth)).append("\n");
+        int index = 0;
+        int level = 0;
+
+        while (level < depth) {
+            int increment = (int) Math.pow(2, level + 1);
+            index = (int) Math.pow(2, level) - 1;
+            while (index < elementSpan) {
+                stringBuilder.append(" ".repeat(charWidth * (increment + level)));
+                if (elements[index] != null && elements[index].hasItem()) {
+                    int length = elements[index].getItem().toString().length();
+                    int pre = (length % 2 == 0) ? (charWidth - length) / 2 : (charWidth - length + 1) / 2;
+
+                    stringBuilder.append(" ".repeat(pre)).append(elements[index].getItem()).append(" ".repeat((charWidth - length) / 2));
+                } else {
+                    stringBuilder.append("#".repeat(charWidth));
+                }
+                stringBuilder.append(" ".repeat(charWidth * increment));
+                index += increment;
+            }
+            stringBuilder.append("\n");
+            level++;
+        }
+        stringBuilder.append("\t Hier ist oben... \n").append("=".repeat(elementSpan * charWidth)).append("\n");
+        return stringBuilder.toString();
     }
 
     public boolean includes(Object item) {
