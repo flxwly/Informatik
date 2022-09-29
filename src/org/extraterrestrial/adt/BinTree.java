@@ -198,7 +198,7 @@ public class BinTree {
             return "";
         }
 
-        int charWidth = 4; //this.getCharWidth();
+        int charWidth = 2; //this.getCharWidth();
         int elementSpan = (int) Math.pow(2, depth) - 1;
 
         BinTree[] elements = new BinTree[elementSpan];

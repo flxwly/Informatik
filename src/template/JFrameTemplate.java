@@ -3,31 +3,21 @@ package template;
 import javax.swing.*;
 import java.awt.*;
 
-public class JFrameTemplate extends JFrame {
+public abstract class JFrameTemplate extends JFrame {
+
+    static final int frameWidth = 300;
+    static final int frameHeight = 300;
 
     public JFrameTemplate() {
-        // Frame-Initialisierung
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        int frameWidth = 300;
-        int frameHeight = 300;
         setSize(frameWidth, frameHeight);
-        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-        int x = (d.width - getSize().width) / 2;
-        int y = (d.height - getSize().height) / 2;
-        setLocation(x, y);
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - getSize().width) / 2,
+                (Toolkit.getDefaultToolkit().getScreenSize().height - getSize().height) / 2);
         setResizable(false);
         getContentPane().setLayout(null);
-        setVisible(true);
-
         addComponents(getContentPane());
-
-    } // end of public DynErstellungFrame
-
-    private void addComponents(Container cp) {
-
+        setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new JFrameTemplate();
-    }
+    public abstract void addComponents(Container cp);
 }
