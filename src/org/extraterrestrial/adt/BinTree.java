@@ -164,8 +164,13 @@ public class BinTree {
     }
 
     private int getCharWidth() {
-        return Math.max(this.hasLeft() ? this.getLeft().getCharWidth() : (this.hasItem() ? this.getItem().toString().length() : 0),
-                this.hasRight() ? this.getRight().getCharWidth() : (this.hasItem() ? this.getItem().toString().length() : 0));
+        return Math.max(
+                this.hasLeft() ?
+                        this.getLeft().getCharWidth()
+                        : (this.hasItem() ? this.getItem().toString().length() : 0),
+                this.hasRight() ?
+                        this.getRight().getCharWidth()
+                        : (this.hasItem() ? this.getItem().toString().length() : 0));
     }
 
     private void getArr(BinTree[] arr, int left, int right) {
@@ -186,7 +191,6 @@ public class BinTree {
             }
         }
     }
-
     public String toString() {
 
         int depth = this.depth();
@@ -198,7 +202,7 @@ public class BinTree {
             return "";
         }
 
-        int charWidth = 2; //this.getCharWidth();
+        int charWidth = getCharWidth(); //getMaxDataStringLength(this);
         int elementSpan = (int) Math.pow(2, depth) - 1;
 
         BinTree[] elements = new BinTree[elementSpan];
